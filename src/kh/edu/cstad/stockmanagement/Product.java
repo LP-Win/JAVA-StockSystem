@@ -1,6 +1,7 @@
 package kh.edu.cstad.stockmanagement;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Product {
     private String id;
@@ -11,8 +12,8 @@ public class Product {
     private LocalDate dateAdded;
     private String extraInfo;
 
-    public Product(String id, String name, String type, int quantity, double price, String extraInfo) {
-        this.id = id;
+    public Product(String name, String type, int quantity, double price, String extraInfo) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.type = type;
         this.quantity = quantity;
@@ -61,6 +62,8 @@ public class Product {
     public LocalDate getDateAdded() {
         return dateAdded;
     }
+
+    public void setDateAdded(LocalDate dateAdded) {this.dateAdded = dateAdded;}
 
     public String getExtraInfo() {
         return extraInfo;

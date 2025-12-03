@@ -1,5 +1,7 @@
 package kh.edu.cstad.stockmanagement;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,20 +14,20 @@ public class StockApp {
 
     public static void main(String[] args) {
         Category desktop = new Category("Desktop");
-        desktop.addProduct(new Product("P01", "Dell", "Office", 30, 300, "I3 6Gen, 8GB, 256GB"));
+        desktop.addProduct(new Product("Dell", "Office", 30, 300, "I3 6Gen, 8GB, 256GB"));
         categories.add(desktop);
 
         Category laptop = new Category("Laptop");
-        laptop.addProduct(new Product("P02", "ACER", "Office", 5, 400, "I5 6Gen, 8GB, 256GB"));
-        laptop.addProduct(new Product("P05", "MSI", "Gaming", 3, 999.99, "I5 13Gen, 16GB, 512GB"));
+        laptop.addProduct(new Product("ACER", "Office", 5, 400, "I5 6Gen, 8GB, 256GB"));
+        laptop.addProduct(new Product( "MSI", "Gaming", 3, 999.99, "I5 13Gen, 16GB, 512GB"));
         categories.add(laptop);
 
         Category monitor = new Category("Monitor");
-        monitor.addProduct(new Product("P03", "ASUS", "Office", 8, 140, "24Inch, FHD, 200Hz"));
+        monitor.addProduct(new Product( "ASUS", "Office", 8, 140, "24Inch, FHD, 200Hz"));
         categories.add(monitor);
 
         Category network = new Category("Network");
-        network.addProduct(new Product("P04", "TP-link", "Routor", 15, 30, "Wifi 5"));
+        network.addProduct(new Product( "TP-link", "Routor", 15, 30, "Wifi 5"));
         categories.add(network);
 
         PrintUtil.printAppName();
@@ -98,8 +100,15 @@ public class StockApp {
                     String delName = scanner.nextLine();
                     Category catDel = findCategory(delName);
                     if (catDel != null) {
-                        categories.remove(catDel);
-                        PrintUtil.printMessage("Category deleted.");
+                        System.out.println("Please Enter [ DELETE ] to Confirm or [ X ] to Cancel.");
+                        String delete = scanner.nextLine();
+                        if (delete.equalsIgnoreCase("DELETE")){
+                            categories.remove(catDel);
+                            PrintUtil.printMessage("Category deleted.");
+                        }else if (delete.equalsIgnoreCase("X")) {
+                            System.out.println("Deleting has been Cancelled.");
+                            break;
+                        }
                     } else {
                         PrintUtil.printMessage("Category not found.");
                     }
@@ -160,9 +169,7 @@ public class StockApp {
             int catIndex = Integer.parseInt(scanner.nextLine()) - 1;
             if (catIndex >= 0 && catIndex < categories.size()) {
                 Category selectedCat = categories.get(catIndex);
-                System.out.println("====== Please Enter Product Detail ======");
-                System.out.print("ID: ");
-                String id = scanner.nextLine();
+                PrintUtil.printMessage("====== Please Enter Product Detail ======");
                 System.out.print("Name: ");
                 String name = scanner.nextLine();
                 System.out.print("Type: ");
@@ -171,8 +178,10 @@ public class StockApp {
                 int qty = Integer.parseInt(scanner.nextLine());
                 System.out.print("Price: ");
                 double price = Double.parseDouble(scanner.nextLine());
+                System.out.print("ExtraInfo: ");
+                String extraInfo = scanner.nextLine();
 
-                selectedCat.addProduct(new Product(id, name, type, qty, price, ""));
+                selectedCat.addProduct(new Product(name, type, qty, price, extraInfo));
                 PrintUtil.printMessage("Product added.");
             }
         } catch (Exception e) {
@@ -181,14 +190,31 @@ public class StockApp {
     }
 
     private static void editProduct() {
+        PrintUtil.printMessage("====== Update Product ======");
         System.out.print("Enter Product Name/ID to Edit: ");
         String query = scanner.nextLine();
         for (Category c : categories) {
             for (Product p : c.getProducts()) {
                 if (p.getName().equalsIgnoreCase(query) || p.getId().equalsIgnoreCase(query)) {
-                    System.out.print("New Name (" + p.getName() + "): ");
-                    String val = scanner.nextLine();
-                    if (!val.isEmpty()) p.setName(val);
+                    if (!query.isEmpty()) {
+                        PrintUtil.printMessage("====== Please Update Product Detail ======");
+                        System.out.print("Name: ");
+                        String name = scanner.nextLine();
+                        p.setName(name);
+                        System.out.print("Type: ");
+                        String type = scanner.nextLine();
+                        p.setType(type);
+                        System.out.print("Qty: ");
+                        int qty = Integer.parseInt(scanner.nextLine());
+                        p.setQuantity(qty);
+                        System.out.print("Price: ");
+                        double price = Double.parseDouble(scanner.nextLine());
+                        p.setPrice(price);
+                        p.setDateAdded(LocalDate.now());
+                        System.out.print("ExtraInfo: ");
+                        String extraInfo = scanner.nextLine();
+                        p.setExtraInfo(extraInfo);
+                    }
                     PrintUtil.printMessage("Product updated.");
                     return;
                 }
@@ -198,11 +224,18 @@ public class StockApp {
     }
 
     private static void deleteProduct() {
+        PrintUtil.printMessage("====== Delete Product ======");
         System.out.print("Enter Product Name/ID to Delete: ");
         String query = scanner.nextLine();
         for (Category c : categories) {
-            if (c.getProducts().removeIf(p -> p.getName().equalsIgnoreCase(query) || p.getId().equalsIgnoreCase(query))) {
+            System.out.println("Please Enter [ DELETE ] to Confirm or [ X ] to Cancel.");
+            String delete = scanner.nextLine();
+            if (delete.equalsIgnoreCase("DELETE")) {
+                c.getProducts().removeIf(p -> p.getName().equalsIgnoreCase(query) || p.getId().equalsIgnoreCase(query));
                 PrintUtil.printMessage("Product deleted.");
+                return;
+            } else if (delete.equalsIgnoreCase("X")) {
+                System.out.println("Deleting has been Cancelled.");
                 return;
             }
         }
