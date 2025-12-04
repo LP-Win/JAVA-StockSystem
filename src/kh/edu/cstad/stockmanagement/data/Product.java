@@ -12,17 +12,16 @@ public class Product {
     private LocalDate dateAdded;
     private String extraInfo;
 
-    public Product(String name, String type, int quantity, double price, String extraInfo) {
+    public Product(String name, String type, int quantity, double price,LocalDate dateAdded, String extraInfo) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.type = type;
         this.quantity = quantity;
         this.price = price;
-        this.dateAdded = LocalDate.now();
+        this.dateAdded = dateAdded;
         this.extraInfo = extraInfo;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -63,7 +62,9 @@ public class Product {
         return dateAdded;
     }
 
-    public void setDateAdded(LocalDate dateAdded) {this.dateAdded = dateAdded;}
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
 
     public String getExtraInfo() {
         return extraInfo;

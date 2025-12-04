@@ -1,15 +1,12 @@
 package kh.edu.cstad.stockmanagement.util;
 
 import kh.edu.cstad.stockmanagement.data.Category;
-
 import java.util.Scanner;
-
 import static kh.edu.cstad.stockmanagement.data.StaticData.categories;
 
 public class CatUtil {
     private static final Scanner scanner = new Scanner(System.in);
 
-    // CATEGORY MANAGEMENT
     public static void manageCategories() {
         while (true) {
             PrintUtil.printCategoryMenu();
@@ -21,7 +18,6 @@ public class CatUtil {
                     System.out.print("Enter New Category Name: ");
                     String name = scanner.nextLine().trim();
 
-                    // Check if exists using our local list
                     if (findCategoryByName(name) != null) {
                         PrintUtil.printMessage("Error: Category already exists.");
                     } else {
@@ -32,7 +28,7 @@ public class CatUtil {
 
                 case "2": // Edit
                     PrintUtil.printCategoryTable(categories);
-                    System.out.print("Enter Category Name to Edit: ");
+                    System.out.print("Enter Category Name to Update: ");
                     String oldName = scanner.nextLine();
 
                     Category catToEdit = findCategoryByName(oldName);
@@ -77,17 +73,15 @@ public class CatUtil {
                     break;
 
                 case "5":
-                    return; // Exit the method
+                    return;
                 default:
                     PrintUtil.printMessage("Invalid input.");
             }
         }
     }
 
-    // Helper method to find a category inside the 'categories' list
     private static Category findCategoryByName(String name) {
         for (Category c : categories) {
-            // Assuming Category has a getName() method
             if (c.getName().equalsIgnoreCase(name)) {
                 return c;
             }

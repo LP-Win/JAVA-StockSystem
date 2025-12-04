@@ -2,13 +2,9 @@ package kh.edu.cstad.stockmanagement.util;
 
 import kh.edu.cstad.stockmanagement.data.Category;
 import kh.edu.cstad.stockmanagement.data.Product;
-
 import java.time.LocalDate;
 import java.util.Scanner;
-
-
 import static kh.edu.cstad.stockmanagement.data.StaticData.categories;
-
 
 public class ProdUtil {
     public static void manageProducts() {
@@ -70,10 +66,10 @@ public class ProdUtil {
                 int qty = Integer.parseInt(scanner.nextLine());
                 System.out.print("Price: ");
                 double price = Double.parseDouble(scanner.nextLine());
-                System.out.print("ExtraInfo: ");
+                System.out.print("Detail: ");
                 String extraInfo = scanner.nextLine();
 
-                selectedCat.addProduct(new Product(name, type, qty, price, extraInfo));
+                selectedCat.addProduct(new Product(name, type, qty, price, LocalDate.now(),extraInfo));
                 PrintUtil.printMessage("Product added.");
             }
         } catch (Exception e) {
@@ -84,7 +80,7 @@ public class ProdUtil {
     public static void editProduct() {
         Scanner scanner = new Scanner(System.in);
         PrintUtil.printMessage("====== Update Product ======");
-        System.out.print("Enter Product Name/ID to Edit: ");
+        System.out.print("Enter Product Name/ID to Update: ");
         String query = scanner.nextLine();
         for (Category c : categories) {
             for (Product p : c.getProducts()) {
@@ -104,9 +100,14 @@ public class ProdUtil {
                         double price = Double.parseDouble(scanner.nextLine());
                         p.setPrice(price);
                         p.setDateAdded(LocalDate.now());
-                        System.out.print("ExtraInfo: ");
-                        String extraInfo = scanner.nextLine();
-                        p.setExtraInfo(extraInfo);
+
+                        System.out.println("Enter [ Y ] to update info:");
+                        String keep = scanner.nextLine();
+                        if (keep.equalsIgnoreCase("Y")) {
+                            System.out.print("Detail: ");
+                            String extraInfo = scanner.nextLine();
+                            p.setExtraInfo(extraInfo);
+                        }
                     }
                     PrintUtil.printMessage("Product updated.");
                     return;
@@ -135,5 +136,7 @@ public class ProdUtil {
         }
         PrintUtil.printMessage("Product not found.");
     }
+
+
 
 }

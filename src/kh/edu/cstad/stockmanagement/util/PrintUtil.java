@@ -49,7 +49,7 @@ public class PrintUtil {
         table.setColumnWidth(0, 50, 80);
         table.addCell("Category Management", cellStyle);
         table.addCell("(1). Create Category");
-        table.addCell("(2). Edit Category");
+        table.addCell("(2). Update Category");
         table.addCell("(3). View Categories");
         table.addCell("(4). Delete Category");
         table.addCell("(5). Return to Main Menu");
@@ -62,7 +62,7 @@ public class PrintUtil {
         table.setColumnWidth(0, 50, 80);
         table.addCell("Product Management", cellStyle);
         table.addCell("(1). Create Product");
-        table.addCell("(2). Edit Product");
+        table.addCell("(2). Update Product");
         table.addCell("(3). View Product");
         table.addCell("(4). Delete Product");
         table.addCell("(5). Return to Main Menu");
@@ -79,7 +79,7 @@ public class PrintUtil {
         table.addCell("Price", new CellStyle(CellStyle.HorizontalAlign.center));
         table.addCell("Date", new CellStyle(CellStyle.HorizontalAlign.center));
         table.addCell("Category", new CellStyle(CellStyle.HorizontalAlign.center));
-        table.addCell("Other", new CellStyle(CellStyle.HorizontalAlign.center));
+        table.addCell("Detail", new CellStyle(CellStyle.HorizontalAlign.center));
 
         boolean hasData = false;
         for (Category c : categories) {

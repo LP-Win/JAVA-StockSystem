@@ -1,13 +1,9 @@
 package kh.edu.cstad.stockmanagement;
 
-
 import kh.edu.cstad.stockmanagement.util.PrintUtil;
-
 import java.util.Scanner;
-
 import static kh.edu.cstad.stockmanagement.util.CatUtil.manageCategories;
 import static kh.edu.cstad.stockmanagement.util.ProdUtil.manageProducts;
-
 
 public class StockApp {
 
@@ -35,6 +31,5 @@ public class StockApp {
             }
         }
     }
-
 
 }
