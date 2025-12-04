@@ -1,4 +1,4 @@
-package kh.edu.cstad.stockmanagement;
+package kh.edu.cstad.stockmanagement.data;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -73,8 +73,5 @@ public class Product {
         this.extraInfo = extraInfo;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+
 }

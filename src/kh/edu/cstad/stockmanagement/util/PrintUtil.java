@@ -1,5 +1,7 @@
-package kh.edu.cstad.stockmanagement;
+package kh.edu.cstad.stockmanagement.util;
 
+import kh.edu.cstad.stockmanagement.data.Category;
+import kh.edu.cstad.stockmanagement.data.Product;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.Table;

@@ -1,11 +1,11 @@
-package kh.edu.cstad.stockmanagement;
+package kh.edu.cstad.stockmanagement.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
     private String name;
-    private List<Product> products;
+    private final List<Product> products;
 
     public Category(String name) {
         this.name = name;
